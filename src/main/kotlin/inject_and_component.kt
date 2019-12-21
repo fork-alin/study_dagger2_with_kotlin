@@ -21,12 +21,12 @@ interface PComponent {
 class Home {
     @Inject lateinit var people: People
 
-    fun doNight() {
+    fun doDinner() {
         DaggerPComponent.create().into(this)
         println(people.doWhat())
     }
 }
 
 fun main(args: Array<String>) {
-    Home().doNight()
+    Home().doDinner()
 }

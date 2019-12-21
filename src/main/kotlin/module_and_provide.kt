@@ -3,17 +3,16 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
 
+class Age {
+    fun myAge(): String {
+        return "22"
+    }
+}
+
 abstract class Citer {
     abstract fun doWhat(): String
 }
 
-/*
-class Student(val age: Age) : Citer() {
-    override fun doWhat(): String {
-        return age.myAge()
-    }
-}
-*/
 class Student(val age: Age) {
     fun doWhat(): String {
         return age.myAge()
@@ -25,19 +24,6 @@ class Worker : Citer() {
         return "work"
     }
 }
-
-class Age {
-    fun myAge(): String {
-        return "22"
-    }
-}
-/*
-class Age @Inject constructor() {
-    fun myAge(): String {
-        return "22"
-    }
-}
-*/
 
 @Module
 class CiterModule {
@@ -68,8 +54,11 @@ class House {
     @Inject
     lateinit var worker: Worker
 
-    fun showTime() {
+    init {
         DaggerCiterComponent.create().inject(this)
+    }
+
+    fun showTime() {
         println(student.doWhat())
         println(worker.doWhat())
     }
